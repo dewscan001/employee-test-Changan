@@ -30,7 +30,7 @@ urlpatterns = [
     path('position/<int:id>', views.position_detail),
     path('department/<int:id>', views.department_detail),
     path('api-auth/', include('rest_framework.urls')),
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    re_path(r'^image/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ] 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
