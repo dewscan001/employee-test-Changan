@@ -7,3 +7,4 @@ services:
       - DEBUG=False
     volumes:
        - ./db.sqlite3_prod:/usr/src/app/db.sqlite3_prod
+       - ./static:/usr/src/app/static
