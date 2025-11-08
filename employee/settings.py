@@ -137,3 +137,4 @@ MEDIA_URL = 'image/'
 MEDIA_ROOT = BASE_DIR / "image"
 
 LOGIN_URL = '/api-auth/login'
+LOGIN_REDIRECT_URL = '/admin'
