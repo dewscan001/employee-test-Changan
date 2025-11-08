@@ -1,4 +1,5 @@
 FROM python:3.14.0
+WORKDIR /usr/src/app
 COPY . .
 RUN pip install -r requirements.txt
 ENV DEBUG=FALSE
