@@ -6,14 +6,26 @@ class PositionSerializer(serializers.ModelSerializer):
         model = PositionModel
         fields = "__all__"
 
+
 class DepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DepartmentModel
+        fields = "__all__"
+
+class DepartmentSerializerGet(DepartmentSerializer):
     class Meta:
         model = DepartmentModel
         fields = "__all__"
         depth = 1
 
 
+
 class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmployeeModel
+        fields = "__all__"
+        
+class EmployeeSerializerGet(EmployeeSerializer):
     class Meta:
         model = EmployeeModel
         fields = "__all__"

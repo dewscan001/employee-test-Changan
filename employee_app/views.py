@@ -4,9 +4,11 @@ from .serializers import *
 from rest_framework.parsers import JSONParser
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 # Create your views here.
+@csrf_exempt
 @require_http_methods(["GET", "POST"])
 @login_required
 def position_list(request):
@@ -24,12 +26,13 @@ def position_list(request):
         else:
             return JsonResponse(serializer.errors, status=400)
 
+@csrf_exempt
 @require_http_methods(["GET", "POST"])
 @login_required
 def department_list(request):
     if request.method == "GET":
         departmentModel = DepartmentModel.objects.all()
-        serializer = DepartmentSerializer(departmentModel, many=True)
+        serializer = DepartmentSerializerGet(departmentModel, many=True)
         return JsonResponse(serializer.data, safe=False)
 
     elif request.method == "POST":
@@ -41,12 +44,13 @@ def department_list(request):
         else:
             return JsonResponse(serializer.errors, status=400)
 
+@csrf_exempt
 @require_http_methods(["GET", "POST"])
 @login_required
 def employee_list(request):
     if request.method == "GET":
         employeeModel = EmployeeModel.objects.all()
-        serializers = EmployeeSerializer(employeeModel, many=True)
+        serializers = EmployeeSerializerGet(employeeModel, many=True)
         return JsonResponse(serializers.data, safe=False)
     elif request.method == 'POST':
         data = JSONParser().parse(request)
@@ -55,8 +59,9 @@ def employee_list(request):
             serializers.save()
             return JsonResponse(serializers.data, status=201)
         else:
-            return JsonResponse(serializers.data, status=400)
-       
+            return JsonResponse(serializers.errors, status=400)
+
+@csrf_exempt      
 @require_http_methods(["GET", "PUT", "DELETE"])
 @login_required
 def position_detail(request, id):
@@ -73,18 +78,19 @@ def position_detail(request, id):
             serializers.save()
             return JsonResponse(serializers.data, status=201)
         else:
-            return JsonResponse(serializers.data, status=400)
+            return JsonResponse(serializers.errors, status=400)
     
     elif request.method == 'DELETE':
         positionModel.delete()
         return HttpResponse(status=204)
 
+@csrf_exempt
 @require_http_methods(["GET", "PUT", "DELETE"])
 @login_required       
 def department_detail(request, id):
     departmentModel = get_object_or_404(DepartmentModel, pk=id)
     if request.method == 'GET':
-        serializers = DepartmentSerializer(departmentModel)
+        serializers = DepartmentSerializerGet(departmentModel)
         return JsonResponse(serializers.data, safe=False)
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
@@ -93,17 +99,18 @@ def department_detail(request, id):
             serializers.save()
             return JsonResponse(serializers.data, status=201)
         else:
-            return JsonResponse(serializers.data, status=400)
+            return JsonResponse(serializers.errors, status=400)
     elif request.method == 'DELETE':
         departmentModel.delete()
         return HttpResponse(status=204)
 
+@csrf_exempt
 @require_http_methods(["GET", "PUT", "DELETE"])
 @login_required
 def employee_detail(request, id):
     employeeModel = get_object_or_404(EmployeeModel, pk=id)
     if request.method == 'GET':
-        serializers = EmployeeSerializer(employeeModel)
+        serializers = EmployeeSerializerGet(employeeModel)
         return JsonResponse(serializers.data, safe=False)
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
@@ -112,7 +119,7 @@ def employee_detail(request, id):
             serializers.save()
             return JsonResponse(serializers.data, status=201)
         else: 
-            return JsonResponse(serializers.data, status=400)
+            return JsonResponse(serializers.errors, status=400)
     elif request.method == 'DELETE':
         employeeModel.delete()
         return HttpResponse(status=204)
