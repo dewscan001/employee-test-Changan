@@ -12,6 +12,7 @@ You can use admin role for create new another user from Admin page (`/admin`) > 
 <br>
 
 # How to run
+- `git clone https://github.com/dewscan001/employee-test-Changan.git`
 - `docker-compose -f docker-compose-prod.yml --build` << for product environment (use database: `db.sqlite3_prod`) <br>
 
 - `docker-compose -f docker-compose-test.yml --build` << for development environment (use database: `db.sqlite3_test`) <br>
