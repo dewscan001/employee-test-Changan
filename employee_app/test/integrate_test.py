@@ -35,7 +35,7 @@ class IntegrateTestCase(TestCase):
     def test_get_employee_list_if_use_other_method(self):
         employee_put = self.client.put("/employee")
         self.assertEqual(employee_put.status_code, 405)
-        employee_delete = self.client.put("/employee")
+        employee_delete = self.client.delete("/employee")
         self.assertEqual(employee_delete.status_code, 405)
 
     #Department
@@ -62,7 +62,7 @@ class IntegrateTestCase(TestCase):
     def test_get_department_list_if_use_other_method(self):
         department_put = self.client.put("/department")
         self.assertEqual(department_put.status_code, 405)
-        department_delete = self.client.put("/department")
+        department_delete = self.client.delete("/department")
         self.assertEqual(department_delete.status_code, 405)
 
     #Position
@@ -89,7 +89,7 @@ class IntegrateTestCase(TestCase):
     def test_get_position_list_if_use_other_method(self):
         position_put = self.client.put("/position")
         self.assertEqual(position_put.status_code, 405)
-        position_delete = self.client.put("/position")
+        position_delete = self.client.delete("/position")
         self.assertEqual(position_delete.status_code, 405)
 
 
@@ -100,7 +100,7 @@ class IntegrateTestCase(TestCase):
         self.assertEqual(employee_detail.status_code, 404)
         employee_detail_put = self.client.put("/employee/1", data={"name": "test2", "address":"test", "manager":True})
         self.assertEqual(employee_detail_put.status_code, 404)
-        employee_detail_delete = self.client.put("/employee/1")
+        employee_detail_delete = self.client.delete("/employee/1")
         self.assertEqual(employee_detail_delete.status_code, 404)
 
     def test_get_employee_detail_with_logged_and_exist(self):
@@ -274,7 +274,7 @@ class IntegrateTestCase(TestCase):
         self.assertEqual(department_detail.status_code, 404)
         department_detail_put = self.client.put("/department/1", data={"department_name": "IT"})
         self.assertEqual(department_detail_put.status_code, 404)
-        department_detail_delete = self.client.put("/department/1")
+        department_detail_delete = self.client.delete("/department/1")
         self.assertEqual(department_detail_delete.status_code, 404)
 
     def test_get_department_detail_with_logged_and_exist(self):

@@ -91,6 +91,7 @@ class DepartmentTestCase(TestCase):
     def test_delete_employee_model(self):
         employeeModel = EmployeeModel.objects.last()
         departmentModel = DepartmentModel.objects.filter(manager_id = employeeModel.pk).first()
+        self.assertEqual(departmentModel.manager.id, employeeModel.pk)
         employeeModel.delete()
         departmentModel.refresh_from_db()
         self.assertEqual(EmployeeModel.objects.count(), 0)
