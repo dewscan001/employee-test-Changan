@@ -25,7 +25,7 @@ class EmployeeModel(models.Model):
 
 class DepartmentModel(models.Model):
     department_name = models.CharField(verbose_name="Department", max_length=255, blank=False, null=False, unique=True)
-    manager = models.OneToOneField(verbose_name="manager", to='EmployeeModel', on_delete=models.SET_NULL,  blank=False, null=True)
+    manager = models.OneToOneField(verbose_name="manager", to='EmployeeModel', on_delete=models.SET_NULL,  blank=False, null=True, limit_choices_to={'manager': True})
     def __str__(self):
         return self.department_name
 

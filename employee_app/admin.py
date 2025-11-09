@@ -15,10 +15,6 @@ admin.site.register(PositionModel, PositionAdmin)
 
 class DepartmentAdmin(admin.ModelAdmin):
     search_fields = ["department_name"]
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "manager":
-            kwargs["queryset"] = EmployeeModel.objects.filter(manager=True)
-        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 admin.site.register(DepartmentModel, DepartmentAdmin)
 
 class StatusAdmin(admin.ModelAdmin):
