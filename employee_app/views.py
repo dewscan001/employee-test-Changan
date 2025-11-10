@@ -46,12 +46,18 @@ def department_list(request):
 @login_required    
 def employee_list(request):
     if request.method == "GET":
+        employeeModel = EmployeeModel.objects.all()
         if request.GET.get('q'):
-            employeeModel = EmployeeModel.objects.filter(Q(name__icontains = request.GET.get('q')) | 
-                                                         Q(position__position_name__icontains = request.GET.get('q')) | 
-                                                         Q(department__department_name__icontains = request.GET.get('q')))
-        else:
-            employeeModel = EmployeeModel.objects.all()
+            employeeModel = employeeModel.filter(Q(name__icontains = request.GET.get('q')) | 
+                                                        Q(position__position_name__icontains = request.GET.get('q')) | 
+                                                        Q(department__department_name__icontains = request.GET.get('q')))
+        if request.GET.get('sort'):
+            if request.GET.get('sort') == 'name':
+                employeeModel = employeeModel.order_by('name')
+            elif request.GET.get('sort') == 'position':
+                employeeModel = employeeModel.order_by('position__position_name')
+            elif request.GET.get('sort') == 'department':
+                employeeModel = employeeModel.order_by('department__department_name')
         serializers = EmployeeSerializerGet(employeeModel, many=True)
         return Response(serializers.data)
     elif request.method == 'POST':
