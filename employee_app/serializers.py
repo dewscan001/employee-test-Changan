@@ -12,7 +12,7 @@ class DepartmentSerializer(serializers.ModelSerializer):
         model = DepartmentModel
         fields = "__all__"
 
-class DepartmentSerializerGet(DepartmentSerializer):
+class DepartmentSerializerGet(serializers.ModelSerializer):
     class Meta:
         model = DepartmentModel
         fields = "__all__"
@@ -25,7 +25,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
         model = EmployeeModel
         fields = "__all__"
         
-class EmployeeSerializerGet(EmployeeSerializer):
+class EmployeeSerializerGet(serializers.ModelSerializer):
     class Meta:
         model = EmployeeModel
         fields = "__all__"
