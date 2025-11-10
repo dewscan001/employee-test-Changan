@@ -193,7 +193,7 @@ class IntegrateTestCase(TestCase):
         self.assertEqual(position_detail.status_code, 404)
         position_detail_put = self.client.put("/position/1", data={"position_name": "Python developer", "salary":50000})
         self.assertEqual(position_detail_put.status_code, 404)
-        position_detail_delete = self.client.delete("/position/1", data={"position_name": "Python developer", "salary":50000})
+        position_detail_delete = self.client.delete("/position/1")
         self.assertEqual(position_detail_delete.status_code, 404)
 
     def test_get_position_detail_with_logged_and_exist(self):
