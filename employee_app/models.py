@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class StatusModel(models.Model):
-    status_name = models.CharField(verbose_name="Status", max_length=255, unique=True)
+    status_name = models.CharField(verbose_name="Status", max_length=255, unique=True, blank=False, null=True)
     def __str__(self):
         return self.status_name
     
