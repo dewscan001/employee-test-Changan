@@ -182,7 +182,7 @@ class IntegrateTestCase(TestCase):
         self.client.login(username=self.username, password=self.password)
         employee_create = self.client.post("/employee", data={"name": "test", "address":"test", "manager":True}, content_type="application/json")
         self.assertEqual(employee_create.status_code, 201)
-        employee_detail = self.client.post("/employee/1")
+        employee_detail = self.client.post("/employee/1", data={"name": "test123", "address":"test", "manager":True}, content_type="application/json")
         self.assertEqual(employee_detail.status_code, 405)
 
     
@@ -269,7 +269,7 @@ class IntegrateTestCase(TestCase):
         self.client.login(username=self.username, password=self.password)
         position_create = self.client.post("/position", data={"position_name": "Python developer", "salary":50000}, content_type="application/json")
         self.assertEqual(position_create.status_code, 201)
-        position_detail = self.client.post("/position/1")
+        position_detail = self.client.post("/position/1", data={"position_name": "Odoo developer", "salary":50000}, content_type="application/json")
         self.assertEqual(position_detail.status_code, 405)
 
 
@@ -356,5 +356,5 @@ class IntegrateTestCase(TestCase):
         self.client.login(username=self.username, password=self.password)
         department_create = self.client.post("/department", data={"department_name": "IT"}, content_type="application/json")
         self.assertEqual(department_create.status_code, 201)
-        department_detail = self.client.post("/department/1")
+        department_detail = self.client.post("/department/1", data={"department_name": "Odoo"}, content_type="application/json")
         self.assertEqual(department_detail.status_code, 405)
