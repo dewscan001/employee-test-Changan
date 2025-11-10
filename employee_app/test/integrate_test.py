@@ -19,6 +19,12 @@ class IntegrateTestCase(TestCase):
         employee_list = self.client.get("/employee")
         self.assertEqual(employee_list.status_code, 200)
         self.assertEqual(employee_list.json(), [{'id': 1, 'name': 'test', 'address': 'test', 'manager': True, 'image': None, 'position': None, 'status': None, 'department': None}])
+        employee_list = self.client.get("/employee?q=test")
+        self.assertEqual(employee_list.status_code, 200)
+        self.assertEqual(employee_list.json(), [{'id': 1, 'name': 'test', 'address': 'test', 'manager': True, 'image': None, 'position': None, 'status': None, 'department': None}])
+        employee_list = self.client.get("/employee?q=test1234")
+        self.assertEqual(employee_list.status_code, 200)
+        self.assertEqual(employee_list.json(), [])
 
     def test_post_create_employee_if_user_logged_and_not_success(self):
         self.client.login(username=self.username, password=self.password)

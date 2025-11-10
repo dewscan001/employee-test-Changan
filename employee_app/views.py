@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.db.models import Q
+
 
 # Create your views here.
 @csrf_exempt
@@ -44,7 +46,12 @@ def department_list(request):
 @login_required    
 def employee_list(request):
     if request.method == "GET":
-        employeeModel = EmployeeModel.objects.all()
+        if request.GET.get('q'):
+            employeeModel = EmployeeModel.objects.filter(Q(name__icontains = request.GET.get('q')) | 
+                                                         Q(position__position_name__icontains = request.GET.get('q')) | 
+                                                         Q(department__department_name__icontains = request.GET.get('q')))
+        else:
+            employeeModel = EmployeeModel.objects.all()
         serializers = EmployeeSerializerGet(employeeModel, many=True)
         return Response(serializers.data)
     elif request.method == 'POST':
